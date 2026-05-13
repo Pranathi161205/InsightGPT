@@ -17,7 +17,7 @@ const [loadingMessage, setLoadingMessage] = useState("AI is generating...");
   const [outputFormat, setOutputFormat] = useState("Headings + Bullet Points");
   const [purpose, setPurpose] = useState("Study Notes");
 
-  const API = "http://127.0.0.1:8000";
+  const API = "http://https://insightgpt-6d5t.onrender.com";
 
   const uploadPDF = async () => {
     if (!file) return alert("Please select a PDF");
