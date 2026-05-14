@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import ReactMarkdown from "react-markdown";
+import html2pdf from "html2pdf.js";
 
 function App() {
   const [file, setFile] = useState(null);
@@ -174,6 +175,26 @@ const askAcrossPapers = async () => {
 
   setLoading(false);
 };
+
+  const exportAsPDF = () => {
+    const element = document.getElementById("ai-output-content");
+
+    if (!element) {
+      alert("No output to export");
+      return;
+    }
+
+    const options = {
+      margin: 0.5,
+      filename: "InsightGPT_AI_Notes.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+    };
+
+    html2pdf().set(options).from(element).save();
+  };
+
   return (
     <div className="page">
       <nav className="navbar">
@@ -430,7 +451,15 @@ const askAcrossPapers = async () => {
 </section>
       )}
       <section className="output-section" id="output">
-        <h2>Output</h2>
+        <div className="output-header">
+          <h2>Output</h2>
+
+          {output && !loading && (
+            <button className="export-btn" onClick={exportAsPDF}>
+              Export PDF
+            </button>
+          )}
+        </div>
 
         {loading ? (
           <div className="loader">
@@ -438,7 +467,7 @@ const askAcrossPapers = async () => {
             <p>AI is generating...</p>
           </div>
         ) : (
-          <div className="markdown-output">
+          <div className="markdown-output" id="ai-output-content">
             <ReactMarkdown>
               {output || "Your customized AI notes will appear here..."}
             </ReactMarkdown>
