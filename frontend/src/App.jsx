@@ -245,7 +245,7 @@ const askAcrossPapers = async () => {
     </div>
   </div>
 </section>
-<section className="analysis-selector">
+<section className="analysis-selector" id="dashboard">
   <h2>Choose Analysis Type</h2>
   <p>Select how you want to analyze your research documents.</p>
 
@@ -269,7 +269,7 @@ const askAcrossPapers = async () => {
 
 </section>
       {selectedMode === "single" && (
-      <section className="workspace-card" id="dashboard">
+      <section className="workspace-card">
         
 
         <div className="main-box">
