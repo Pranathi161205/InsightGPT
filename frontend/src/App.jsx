@@ -16,8 +16,9 @@ const [loadingMessage, setLoadingMessage] = useState("AI is generating...");
   const [languageStyle, setLanguageStyle] = useState("Student-friendly");
   const [outputFormat, setOutputFormat] = useState("Headings + Bullet Points");
   const [purpose, setPurpose] = useState("Study Notes");
-
-  const API = "http://https://insightgpt-6d5t.onrender.com/api";
+  const [analysisMode, setAnalysisMode] = useState("single");
+const [selectedMode, setSelectedMode] = useState("");
+  const API = "https://insightgpt-6d5t.onrender.com";
 
   const uploadPDF = async () => {
     if (!file) return alert("Please select a PDF");
@@ -244,6 +245,30 @@ const askAcrossPapers = async () => {
     </div>
   </div>
 </section>
+<section className="analysis-selector">
+  <h2>Choose Analysis Type</h2>
+  <p>Select how you want to analyze your research documents.</p>
+
+  <div className="selector-buttons">
+
+    <button
+      className={selectedMode === "single" ? "active-select" : ""}
+      onClick={() => setSelectedMode("single")}
+    >
+      Single Paper Analysis
+    </button>
+
+    <button
+      className={selectedMode === "multiple" ? "active-select" : ""}
+      onClick={() => setSelectedMode("multiple")}
+    >
+      Multiple Paper Analysis
+    </button>
+
+  </div>
+
+</section>
+      {selectedMode === "single" && (
       <section className="workspace-card" id="dashboard">
         
 
@@ -353,7 +378,9 @@ const askAcrossPapers = async () => {
           </div>
         </div>
       </section>
-<section className="multi-paper-section" id="multi-paper">
+      )}
+      {selectedMode === "multiple" && (
+      <section className="multi-paper-section" id="multi-paper">
   <h2>Multi-Paper Research Assistant</h2>
   <p>
     Upload multiple research papers and ask AI to compare, analyze, and combine insights.
@@ -401,6 +428,7 @@ const askAcrossPapers = async () => {
     </div>
   </div>
 </section>
+      )}
       <section className="output-section" id="output">
         <h2>Output</h2>
 
